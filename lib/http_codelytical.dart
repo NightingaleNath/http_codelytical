@@ -5,4 +5,5 @@ export 'src/httpManager/httpManager.dart';
 export 'src/httpManager/headers.dart';
 export 'src/httpManager/httpManagerExtension.dart';
 export 'src/requestResponse/requestResponse.dart';
+export 'src/enums/appEnums.dart';
 
