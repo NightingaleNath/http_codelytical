@@ -3,7 +3,9 @@ import 'package:logger/logger.dart';
 
 class ApiConfig {
 
-  static final Logger logger = Logger();
+  static final logger = Logger(
+    printer: PrettyPrinter(),
+  );
 
   static int requestTimedOut = 30; // Default value
   static int requestDataLimit = 30; // Default value
@@ -21,7 +23,7 @@ class ApiConfig {
   static String getBaseUrl() {
     String? baseUrl = urls[environment];
     if (baseUrl == null) {
-      logger.e('Base URL not provided for the current environment');
+      logger.d('Base URL not provided for the current environment');
       throw Exception('Base URL not provided for the current environment');
     }
     return baseUrl;

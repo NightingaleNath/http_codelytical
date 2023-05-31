@@ -7,11 +7,13 @@ import 'package:logger/logger.dart';
 
 Object responseHandler(client.Response response) {
 
-  final Logger logger = Logger();
+  final logger = Logger(
+    printer: PrettyPrinter(),
+  );
 
   var decodedResponse = json.decode(response.body);
   if (kDebugMode) {
-    logger.e('[responseHandler] Decoded response: $decodedResponse');
+    logger.d('[responseHandler] Decoded response: $decodedResponse');
   }
 
   var statusKey = KeyHandler.getStatusKey(response);
