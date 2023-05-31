@@ -6,11 +6,11 @@ import 'package:http_codelytical/src/httpManager/apiConfig.dart';
 import 'package:http_codelytical/src/httpManager/headers.dart';
 import 'package:http_codelytical/src/httpManager/responseHandler.dart';
 import 'package:http_codelytical/src/requestResponse/requestResponse.dart';
-import 'package:logger/logger.dart';
+// import 'package:logger/logger.dart';
 
-var logger = Logger(
-  printer: PrettyPrinter(),
-);
+// var logger = Logger(
+//   printer: PrettyPrinter(),
+// );
 
 class HttpManager {
   static Future<Object> request(String url, {
@@ -20,7 +20,7 @@ class HttpManager {
     bool includeApiKey = false,
   }) async {
     final completeUrl = ApiConfig.getBaseUrl() + url;
-    logger.d('[HttpManager] Making request to: $completeUrl');
+    print('[HttpManager] Making request to: $completeUrl');
     try {
       client.Response response;
       switch (type) {
@@ -76,19 +76,19 @@ class HttpManager {
       }
       return responseHandler(response);
     } on HttpException {
-      logger.d("Failed to make HTTP request: HttpException");
+      print("Failed to make HTTP request: HttpException");
       return FailedResponse.failedNetwork;
     } on SocketException {
-      logger.d("Failed to make HTTP request: SocketException");
+      print("Failed to make HTTP request: SocketException");
       return FailedResponse.failedNetwork;
     } on FormatException {
-      logger.d("Failed to make HTTP request: FormatException");
+      print("Failed to make HTTP request: FormatException");
       return FailedResponse.invalidFormatError;
     } on TimeoutException {
-      logger.d("HTTP request timed out");
+      print("HTTP request timed out");
       return FailedResponse.timedOutError;
     } catch (e) {
-      logger.d("Error during HTTP request: ${e.toString()}");
+      print("Error during HTTP request: ${e.toString()}");
       return FailedResponse.unknownError;
     }
   }

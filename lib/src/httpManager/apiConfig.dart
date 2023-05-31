@@ -1,11 +1,11 @@
 import 'package:http_codelytical/src/enums/appEnums.dart';
-import 'package:logger/logger.dart';
+// import 'package:logger/logger.dart';
 
 class ApiConfig {
 
-  static final logger = Logger(
-    printer: PrettyPrinter(),
-  );
+  // static final logger = Logger(
+  //   printer: PrettyPrinter(),
+  // );
 
   static int requestTimedOut = 30; // Default value
   static int requestDataLimit = 30; // Default value
@@ -23,7 +23,7 @@ class ApiConfig {
   static String getBaseUrl() {
     String? baseUrl = urls[environment];
     if (baseUrl == null) {
-      logger.d('Base URL not provided for the current environment');
+      print('Base URL not provided for the current environment');
       throw Exception('Base URL not provided for the current environment');
     }
     return baseUrl;

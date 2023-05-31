@@ -3,17 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as client;
 import 'package:http_codelytical/src/httpManager/keyHandler.dart';
 import 'package:http_codelytical/src/requestResponse/requestResponse.dart';
-import 'package:logger/logger.dart';
+// import 'package:logger/logger.dart';
 
 Object responseHandler(client.Response response) {
 
-  final logger = Logger(
-    printer: PrettyPrinter(),
-  );
+  // final logger = Logger(
+  //   printer: PrettyPrinter(),
+  // );
 
   var decodedResponse = json.decode(response.body);
   if (kDebugMode) {
-    logger.d('[responseHandler] Decoded response: $decodedResponse');
+    print('[responseHandler] Decoded response: $decodedResponse');
   }
 
   var statusKey = KeyHandler.getStatusKey(response);
