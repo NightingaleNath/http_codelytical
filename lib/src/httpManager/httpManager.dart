@@ -21,6 +21,7 @@ class HttpManager {
   }) async {
     final completeUrl = ApiConfig.getBaseUrl() + url;
     print('[HttpManager] Making request to: $completeUrl');
+    print('[HttpManager] Making request to: $url');
     try {
       client.Response response;
       switch (type) {
