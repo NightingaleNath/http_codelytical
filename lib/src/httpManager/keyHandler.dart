@@ -19,6 +19,10 @@ class KeyHandler {
       orElse: () => '',
     );
 
+    if (statusKey.isEmpty) {
+      statusKey = 'responseCode'; // Default status key if empty or null
+    }
+
     return statusKey;
   }
 
@@ -38,6 +42,10 @@ class KeyHandler {
           (key) => decodedResponse[key] != null && decodedResponse[key] != '',
       orElse: () => '',
     );
+
+    if (messageKey.isEmpty) {
+      messageKey = 'responseMessage'; // Default message key if empty or null
+    }
 
     return messageKey;
   }

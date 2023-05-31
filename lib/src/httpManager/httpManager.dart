@@ -6,6 +6,9 @@ import 'package:http_codelytical/src/httpManager/apiConfig.dart';
 import 'package:http_codelytical/src/httpManager/headers.dart';
 import 'package:http_codelytical/src/httpManager/responseHandler.dart';
 import 'package:http_codelytical/src/requestResponse/requestResponse.dart';
+import 'package:logger/logger.dart';
+
+final Logger logger = Logger();
 
 class HttpManager {
   static Future<Object> request(String url, {
@@ -15,7 +18,7 @@ class HttpManager {
     bool includeApiKey = false,
   }) async {
     final completeUrl = ApiConfig.getBaseUrl() + url;
-
+    logger.e('[HttpManager] Making request to: $completeUrl');
     try {
       client.Response response;
       switch (type) {
@@ -26,7 +29,7 @@ class HttpManager {
               headers: Headers.getHeader(
                   includeToken: includeToken, includeApiKey: includeApiKey)
           )
-              .timeout(Duration(milliseconds: ApiConfig.requestTimedOut));
+              .timeout(Duration(seconds: ApiConfig.requestTimedOut));
           break;
         case HttpReqType.post:
           response = await client
@@ -36,7 +39,7 @@ class HttpManager {
                 includeToken: includeToken, includeApiKey: includeApiKey),
             body: body,
           )
-              .timeout(Duration(milliseconds: ApiConfig.requestTimedOut));
+              .timeout(Duration(seconds: ApiConfig.requestTimedOut));
           break;
         case HttpReqType.put:
           response = await client
@@ -46,7 +49,7 @@ class HttpManager {
                 includeToken: includeToken, includeApiKey: includeApiKey),
             body: body,
           )
-              .timeout(Duration(milliseconds: ApiConfig.requestTimedOut));
+              .timeout(Duration(seconds: ApiConfig.requestTimedOut));
           break;
         case HttpReqType.delete:
           response = await client
@@ -56,7 +59,7 @@ class HttpManager {
                 includeToken: includeToken, includeApiKey: includeApiKey),
             body: body,
           )
-              .timeout(Duration(milliseconds: ApiConfig.requestTimedOut));
+              .timeout(Duration(seconds: ApiConfig.requestTimedOut));
           break;
         case HttpReqType.patch:
           response = await client
@@ -66,22 +69,25 @@ class HttpManager {
                 includeToken: includeToken, includeApiKey: includeApiKey),
             body: body,
           )
-              .timeout(Duration(milliseconds: ApiConfig.requestTimedOut));
+              .timeout(Duration(seconds: ApiConfig.requestTimedOut));
           break;
       }
       return responseHandler(response);
     } on HttpException {
+      logger.e("Failed to make HTTP request: HttpException");
       return FailedResponse.failedNetwork;
     } on SocketException {
+      logger.e("Failed to make HTTP request: SocketException");
       return FailedResponse.failedNetwork;
     } on FormatException {
+      logger.e("Failed to make HTTP request: FormatException");
       return FailedResponse.invalidFormatError;
     } on TimeoutException {
+      logger.e("HTTP request timed out");
       return FailedResponse.timedOutError;
     } catch (e) {
-      print("ERROR HERE: ${e.toString()}");
+      logger.e("Error during HTTP request: ${e.toString()}");
       return FailedResponse.unknownError;
     }
   }
-
 }
