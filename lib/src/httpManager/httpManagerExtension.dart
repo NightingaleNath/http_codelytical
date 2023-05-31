@@ -69,4 +69,18 @@ extension HttpManagerExtension on String {
       includeApiKey: includeApiKey,
     );
   }
+
+  Future<Object> auth({
+    String? body = '',
+    bool includeToken = false,
+    bool includeApiKey = false,
+  }) async {
+    return HttpManager.request(
+      this,
+      type: HttpReqType.post,
+      body: body,
+      includeToken: includeToken,
+      includeApiKey: includeApiKey,
+    );
+  }
 }
