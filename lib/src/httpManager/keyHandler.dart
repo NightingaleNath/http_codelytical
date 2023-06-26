@@ -10,7 +10,8 @@ class KeyHandler {
       'status',
       'responseCode',
       'response_code',
-      'statusCode'
+      'statusCode',
+      'code'
     ];
 
     // Find the first non-zero status key in the response
@@ -34,7 +35,8 @@ class KeyHandler {
       'message',
       'responseMessage',
       'messageCode',
-      'response_message'
+      'response_message',
+      'result'
     ];
 
     // Find the first non-empty message key in the response
