@@ -9,6 +9,14 @@ void initializeLibrary({
 }) {
   // Set the base URL, token, and API key for your library
   ApiConfig.setBaseUrl(env ?? Environment.uat, baseUrl ?? "");
-  ApiConfig.setToken(token ?? "");
-  ApiConfig.setApiKey(apiKey ?? "");
+
+  // Set the token if provided
+  if (token != null) {
+    ApiConfig.setToken(token);
+  }
+
+  // Set the API key if provided
+  if (apiKey != null) {
+    ApiConfig.setApiKey(apiKey);
+  }
 }
